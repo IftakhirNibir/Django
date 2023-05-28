@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container">
+    <div class="card card-body my-2" style="background: #BEE4F9;">
+        <h5 style="text-align: center;">Contact Info</h5>
+    </div>
+    <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Email ID</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{patient.name}}</td>
+            <td>{{patient.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+      
+
+      <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Medicine</th>
+            <th scope="col">Catecory</th>
+            <th scope="col">Date Ordered</th>
+            <th scope="col">Status</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in orders %}
+				<tr>
+					<td>{{i.medicine}}</td>
+					<td>{{i.medicine.category}}</td>
+					<td>{{i.date_created}}</td>
+					<td>{{i.status}}</td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'deleteOrder' i.id%}">Remove</a></td>
+				</tr>
+				{% endfor %}
+        </tbody>
+      </table>
+      <div class="row">
+      <div class="col-4">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3" style="background: #BEE4F9;">
+            <h4 class="my-0 fw-normal" style="text-align: center;">Total Order</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title" style="text-align: center;">{{order_count}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card my-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Create New Order</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Medicine</h6>
+            <p class="card-text">Click the link below to create new order</p>
+            <a href="{% url 'createOrder' patient.id%}" class="card-link center">Click here</a>
+          </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

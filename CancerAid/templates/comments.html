@@ -1,0 +1,104 @@
+{% extends 'index.html' %}
+{% block body %}
+
+{{userList.email}}
+<div class="container">
+    <h2>Contact Info</h2>
+<div class="card card-body">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Description</th>
+        </tr>
+        {% for j in c %}
+        <tr>
+        <td>{{j.name}}</td>
+       <td>{{j.email}}</td>
+       <td>{{j.desc}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h2>Ambulance Info</h2>
+<div class="card card-body">
+    <table class="table">
+        <tr>
+            <th>Location</th>
+            <th>Contect no</th>
+            <th>Hospital Name</th>
+        </tr>
+        {% for i in a %}
+        <tr>
+        <td>{{i.current_address}}</td>
+       <td>{{i.contact_no}}</td>
+       <td>{{i.hospital}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h2>Finantial Support Info</h2>
+<div class="card card-body">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Phone no</th>
+            <th>Reason</th>
+        </tr>
+        {% for i in f %}
+        <tr>
+        <td>{{i.name}}</td>
+       <td>{{i.phone}}</td>
+       <td>{{i.reason_why_you_need_this}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h2>BkashPayment Info</h2>
+<div class="card card-body">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Option</th>
+            <th>Medicine name and quentity</th>
+            <th>Bkash number</th>
+            <th>Transaction ID</th>
+            <th>FN Support</th>
+        </tr>
+        {% for i in b %}
+        <tr>
+        <td>{{i.name}}</td>
+       <td>{{i.address}}</td>
+       <td>{{i.option}}</td>
+       <td>{{i.medicine_name_and_quentity}}</td>
+       <td>{{i.bkashNumber}}</td>
+       <td>{{i.bkashTransaction}}</td>
+       <td>{{i.financial_support}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="card card-body my-2" style="background: #BEE4F9;">
+    <h5 style="text-align: center;">Payment Info</h5>
+</div>
+<table class="table table-hover my-2">
+    <thead>
+      <tr>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Payment Status</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for j in o %}
+        <tr>
+       <td>{{j.patient}}</td>
+       <td>{{j.status}}</td>
+       <td><a href="{% url 'updatePayStatus' j.id%}">Update</a></td>
+       </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

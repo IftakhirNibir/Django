@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container my-4" >
+    
+    <div class="row">
+
+    <div class="col-9">
+
+<h1>{{room.name}}</h1>
+
+<p>{{room.more}}</p>
+
+<div class="comment-wrapper">
+    <h3>Comment Section</h3>
+    <hr>
+    {% for message in room_messages %}
+         <div>
+             {% if request.user == message.user %}
+             <a class="btn btn-sm btn-danger" href="{% url 'deleteMessage' message.id %}">Remove</a>
+             {% endif %}
+             <small style="color: blue;">@{{message.user}} {{message.created|timesince}} ago</small>
+             <p>{{message.body}}</p>
+             <hr>
+         </div>
+    {% endfor %}
+</div>
+
+{% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" style="width: 95ch; height: 10ch;" placeholder="Write you comments here..." />
+            </form>
+        </div>
+        {% endif %}
+
+        </div>
+
+</div>
+</div>
+</div>
+{% endblock %}

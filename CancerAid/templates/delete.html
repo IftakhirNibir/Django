@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="row">
+	<div class="col-md-6">
+<p> Are you sure you want to delete the "{{item}}"?</p>
+<form method="POST">
+				
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+
+    <input class="btn btn-danger" type="submit" name="Confirm">
+</form>
+    </div>
+    </div>
+
+{% endblock %}

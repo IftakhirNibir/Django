@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block body %}
+<h1 style="text-align: center;">Doctor-Patient Discussion</h1>
+<div class="container">
+<form action="" method="post">
+<div class="form-group">
+    <label for="exampleInputEmail1">Problem</label>
+    <textarea class="form-control" rows="3">{{ord.problem}}</textarea>
+</div>
+  {% csrf_token %}
+   {{form.as_p}}
+   <hr>
+   <input type="submit">
+</form>
+    </div>
+    
+{% endblock %}

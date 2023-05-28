@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container">
+    <h3 style="text-align: center;">Financial Support</h3>
+<div class="img-container my-4">
+    <img  height="200px" width="550px" class="center" src="../static/img/9.jpg">
+    </div>
+    <p>If you provide wrong information then it is harmful for you.Then you will not get any discount but we will take action against you.</p>
+    <div class="p">
+        <p>**Remember that if you receive financial support, we will send a message to your phone number and also let you know how much discount we are giving you.</p>
+       <p>You will get discounts for only 5 medicines per month for delivery of medicines</p>  
+    </div>
+    </div>
+
+<div class="container">
+    <form action="" method="post">
+      {% csrf_token %}
+       {{form.as_p}}
+       <hr>
+       <input type="submit">
+    </form>
+        </div>
+
+
+        <style>
+            .img-container{
+                text-align: center;
+            }
+      
+            .p{
+              text-align: center;
+              color: brown;
+              border-style: groove;
+            }
+        </style>
+      
+
+
+ {% endblock %}

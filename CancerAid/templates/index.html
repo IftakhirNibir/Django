@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/beb1444410.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href ="{% static 'style.css'%}">
+    <title>Cancer Aid</title>
+  </head>
+  <body>
+    <header class="text-center border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Cancer Treatment Aid</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Home</a>
+              </li>
+              {% if request.user.is_active %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'userpage' %}"><i class="far fa-address-card" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>User</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'doctoruserpage' %}"><i class="fas fa-user-nurse" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Doctor Profile</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                {% if request.user.is_staff %}
+                <a class="nav-link active" aria-current="page" href="{% url 'manager' %}"><i class="fas fa-user-cog" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Manager</a>
+                {% endif %}
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'discussion_topicpage' %}"><i class="fas fa-clipboard-list"  style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'contect' %}"><i class="fa fa-fw fa-envelope" style="height: 1px; display: inline;font-size: 23px;padding-right: 8px;"></i>Contact us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'Videos' %}"><i class="far fa-play-circle"  style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Videos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'payment' %}"><i class="fas fa-cash-register" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Donation</a>
+              </li>
+            </ul>
+          </div>
+          
+          {% if user.is_authenticated %}
+          
+          {% if request.user.is_staff %}
+          <button href="" type="button" class="btn btn-info" style="margin: 5px;" data-bs-toggle="modal" data-bs-target="#dsignupModal">
+            <i class="fas fa-user-plus" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i> Doctor Registation
+             </button>
+           {% endif %}
+     
+            Welcome {{request.user}}
+            <a href ="/logout"><button type="button" class="btn btn-info" style="margin-left: 15px;"><i class="fas fa-sign-out-alt" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Logout</button></a>
+            
+            {% else %}
+      
+                  <!--  signup modal -->
+                  <button href="" type="button" class="btn btn-info" style="margin: 5px;" data-bs-toggle="modal" data-bs-target="#signupModal">
+                    <i class="fas fa-user-plus" style="height: 1px; display: inline;font-size: 19px;margin-right: 5px;"></i>SignUp
+                    </button>
+      
+                <!--  login modal -->
+                <button href="" type="button" class="btn btn-info" style="margin: 5px;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  <i class="fas fa-sign-in-alt" style="height: 1px; display: inline;font-size: 23px;margin-right: 5px;"></i>Login
+                  </button>
+            {% endif %}
+        </div>
+      </nav>
+    </header>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+        <i>{{ message }}</i> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="dsignupModal" tabindex="-1" aria-labelledby="dsignupModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">   
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalTitle">Doctor Registation Here</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action ='/doctorsignup' method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="username" class="form-label">Doctor name</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique user name(At least 5 characters long)" required>
+              </div>
+      
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+              </div>
+      
+              <div class="mb-3">
+                <label for="pass1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter your password" required>
+              </div>
+      
+              <div class="mb-3">
+                <label for="pass2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          </div>
+          </div>
+          </div>
+
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action ='/signup' method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique user name(At least 5 characters long)" required>
+        </div>
+        
+        <div class="mb-3">
+          <label for="fname" class="form-label">First name</label>
+          <input type="text" class="form-control" id="fname" name="fname" placeholder="First name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="lname" class="form-label">Last name</label>
+          <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address:</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="pass1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter your password" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="pass2" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!--Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action ='/login' method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter your user name" required>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="pass" class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Enter your password" required>
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">submit</button>
+      </form>
+      <div class="d-flex justify-content-center links">
+        <a href="{% url 'reset_password' %}" class="ml-2">Forgot password?</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+      {% block body %}
+
+
+
+      
+
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center my-4">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Emergency Ambulance</h4>
+              </div>
+              <div class="card-body">
+                <i class="fas fa-ambulance"></i>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <h5>We are arranging 24 hours emergency ambulance service.</h5>
+                </ul>
+                <a href="{% url 'addambu' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Click here</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Specialist Doctor</h4>
+              </div>
+              <div class="card-body">
+                <i class="fas fa-hospital-user"></i></a>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <h5>Check the doctor's list and book your favorite specialist</h5>
+                </ul>
+                <a href="doctor"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Click here</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Medicine</h4>
+              </div>
+              <div class="card-body">
+                <i class="fas fa-pills"></i></a>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <h5>See the list of medicines and order your medicine</h5>
+                </ul>
+                <a href="medicine"><button type="button"  class="w-100 btn btn-lg btn-outline-primary">Click here</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+    <img height="400px" width="600px" class="center" src="static/img/5.png">
+    </div>
+    <div class="col-6">
+      <p style="color:gray ;"> About us</p>
+      <h1>About CancerAid</h1><br>
+      <h5 style="color: gray;">At present most people in Bangladesh are dying of cancer. So we make a
+software system so that people can get every informations and services about cancer.We are trying to provide our services in all divisions of
+Bangladesh.</h5><br>
+<p><a class="btn btn-secondary" href="about/" role="button">View details »</a></p>
+      </div>
+  </div>
+
+    <h1 class="text-center my-4">Cancer Types</h1>
+
+    <h5 style="color: gray; text-align: center;">Cancer.Net offers individualized guides for more than 120 types of cancer and related hereditary syndromes.<br>There are six common cancers in Bangladesh 
+       which are affecting more people.In the given below, we are discussing them briefly</h5>
+
+    <div class="row my-4">
+      <div class="col-lg-4" style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <img  width="120" height="140" src="static/img/c1.jpg" alt="Generic placeholder image">
+        <h2>Lung Cancer</h2>
+        <p>Lung cancer is a type of cancer that begins in the lungs. Your lungs are two spongy organs in your chest that take in oxygen when you inhale and release carbon dioxide when you exhale. Lung cancer is the leading cause of cancer deaths worldwide.</p>
+        <p><a class="btn btn-secondary" href="Lungcancer/" role="button">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4 mx-4" style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+        <img src="static/img/c3.jpg" alt="Generic placeholder image" width="120" height="140">
+        <h2>Stomach Cancer</h2>
+        <p>Stomach cancer begins when cancer cells form in the inner lining of your stomach. These cells can grow into a tumor. Also called gastric cancer, the disease usually grows slowly over many years. Stomach cancer is most often seen in people in their late 60s through 80s.</p>
+        <p><a class="btn btn-secondary" href="Stomach Cancer/" role="button">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4" style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <img src="static/img/c6.jpg" alt="Generic placeholder image" width="120" height="140">
+        <h2>Bladder Cancer</h2>
+        <p>Bladder cancer is a common type of cancer that begins in the cells of the bladder. The bladder is a hollow muscular organ in your lower abdomen that stores urine. Bladder cancer most often begins in the cells (urothelial cells) that line the inside of your bladder.</p>
+        <p><a class="btn btn-secondary" href="Bladder Cancer/" role="button">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div>
+    
+        <div class="row my-4">
+          <div class="col-lg-4" style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <img src="../static/img/c7.jpg" alt="Generic placeholder image" width="120" height="140">
+            <h2>Breast Cancer</h2>
+            <p>Breast cancer is the second most common cancer in women after skin cancer. Mammograms can detect breast cancer early, possibly before it has spread. Explore the links on this page to learn more about breast cancer prevention, screening, treatment, statistics and more.</p>
+            <p><a class="btn btn-secondary" href="Breast Cancer/" role="button">View details »</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4 mx-4" style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <img src="static/img/c5.jpg" alt="Generic placeholder image" width="120" height="140">
+            <h2>Liver Cancer</h2>
+            <p>Liver cancer is a cancer that's found anywhere in the liver. The liver is a large organ at the top right side of your tummy. It helps you digest your food and removes toxins. Liver cancer can sometimes start in your liver (primary) or spread from another organ.</p>
+            <p><a class="btn btn-secondary" href="Liver Cancer/" role="button">View details »</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4"  style="width: 30%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <img src="static/img/c8.jpg" alt="Generic placeholder image" width="120" height="140">
+            <h2>Ovarian Cancer</h2>
+            <p>Ovarian cancer is a type of cancer that begins in the ovaries. The ovaries — each about the size of an almond — produce eggs (ova) as well as the hormones estrogen and progesterone. Ovarian cancer is a growth of cells that forms in the ovaries.</p>
+            <p><a class="btn btn-secondary" href="Ovarian Cancer/" role="button">View details »</a></p>
+          </div><!-- /.col-lg-4 -->
+        </div>
+    </div>
+
+
+      {% endblock body %}
+
+      <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Cancer Aid
+          </h6>
+          <p>
+            Here you will find all types of cancer-related services.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Services
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Hospital Booking</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Emergency Ambulance</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Specialist Doctor</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Cancer Drugs</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Donation</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Contect</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Order Medicine</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Booking Doctor</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contact
+          </h6>
+          <p><i class="fas fa-home me-3"></i> Dhaka, Bangladesh</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            canceraid@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 0171819140</p>
+          <p><i class="fas fa-print me-3"></i> +880171819140</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="">CancerTreatmentAid.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

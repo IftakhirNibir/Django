@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block body %}     
+<h1 style="text-align: center;">Add Doctor</h1>
+<div class="container">
+<form action="adddoctor.html" method="post">
+  {% csrf_token %}
+   {{form.as_p}}
+   <hr>
+   <input type="submit">
+</form>
+    </div>
+
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col">
+      <div class="card card-body">
+  
+        <form method="get">
+          {{myFilter.form}}
+  
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+  
+      </div>
+    </div>
+    
+  </div>
+  <br>
+  </div>
+  <div class="container">
+      <div class="card card-body my-2" style="background: #BEE4F9;">
+          <h5 style="text-align: center;">Cancer Specialist</h5>
+      </div>
+      <table class="table table-hover my-2">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Name</th>
+              <th scope="col">Title</th>
+              <th scope="col">Specialist</th>
+              <th scope="col">Office</th>
+              <th scope="col">Available Time</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for i in doctor%}
+                          <tr>
+                          <td>{{i.user}}</td>
+                          <td>{{i.name}}</td>
+                          <td>{{i.title}}</td>
+                          <td>{{i.specialist}}</td>
+                          <td>{{i.office}}</td>
+                          <td>{{i.available}}</td>
+                          <td><a href="{% url 'updateDoctorInfo' i.id%}">Update</a></td>
+                          <td><a href="{% url 'deleteDoctorInfo' i.id%}">Remove</a></td>
+                      </tr>
+                      {% endfor %}
+          </tbody>
+        </table>
+{% endblock %}

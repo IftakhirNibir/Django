@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+		<div class="card mb-4 rounded-3 shadow-sm my-4">
+			<div class="card-header py-3" style="background: #BEE4F9;">
+			  <h4 class="my-0 fw-normal" style="text-align: center;">About this Page</h4>
+			</div>
+			<div class="card-body">
+				<marquee behavior="scroll" direction="left"><h4>This is your user profile page. Here you can order medicine and book your Specialist</h4></marquee>
+			</div>
+		  </div>
+		</div>
+		<div class="col-8">
+	<div class="card text-center my-4">
+		<div class="card-header">
+		  Your Profile
+		</div>
+		<div class="card-body">
+
+			<form method="POST" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form.as_p}}
+		
+				<div class="form__action">
+					<a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+					<button class="btn btn--main" type="submit">Update</button>
+				  </div>
+			</form>
+		</div>
+	  </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md my-4">
+		<h5 style="text-align: center;">Your Medicine Ordered List</h5>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Medicine</th>
+			        <th>Price(Tk)</th>
+					<th>Date Orderd</th>
+					<th>Delivery Status</th>
+					<th>Discount Status</th>
+					<th>Cancel Order</th>
+				</tr>
+
+				{% for order in orders %}
+
+				<tr>
+					<td>{{order.medicine}}</td>
+					<td>{{order.medicine.price}}</td>
+					<td>{{order.date_created}}</td>
+					<td>{{order.status}}</td>
+					<td>{{order.discount}}</td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'deleteOrder' order.id%}">Cancel</a></td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-4">
+	  <div class="card mb-4 rounded-3 shadow-sm">
+		<div class="card-header py-3" style="background: #BEE4F9;">
+		  <h4 class="my-0 fw-normal" style="text-align: center;">Total Order</h4>
+		</div>
+		<div class="card-body">
+		  <h1 class="card-title pricing-card-title" style="text-align: center;">{{total_orders}}</h1>
+		</div>
+	  </div>
+	</div>
+	<div class="col-4">
+		<div class="card mb-4 rounded-3 shadow-sm">
+		  <div class="card-header py-3" style="background: #BEE4F9;">
+			<h4 class="my-0 fw-normal" style="text-align: center;">Total delivered Order</h4>
+		  </div>
+		  <div class="card-body">
+			<h1 class="card-title pricing-card-title" style="text-align: center;">{{delivered}}</h1>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-4">
+		<div class="card mb-4 rounded-3 shadow-sm">
+		  <div class="card-header py-3" style="background: #BEE4F9;">
+			<h4 class="my-0 fw-normal" style="text-align: center;">Total Pending Order</h4>
+		  </div>
+		  <div class="card-body">
+			<h1 class="card-title pricing-card-title" style="text-align: center;">{{pending}}</h1>
+		  </div>
+		</div>
+	  </div>
+  </div>
+  <div class="row">
+  <div class="col-4">
+		<div class="card my-2" style="width: 18rem;">
+			<div class="card-body">
+			  <h5 class="card-title">Create New Order</h5>
+			  <h6 class="card-subtitle mb-2 text-muted">Medicine</h6>
+			  <p class="card-text">Click the link below to create new order</p>
+			  <a href="{% url 'createOrder' user.id%}" class="card-link center">Click here</a>
+			</div>
+		  </div>
+      </div>
+	  <div class="col-4">
+		<div class="card my-2" style="width: 18rem;">
+			<div class="card-body">
+			  <h5 class="card-title">Contect Your Doctor</h5>
+			  <h6 class="card-subtitle mb-2 text-muted">Doctors</h6>
+			  <p class="card-text">Click the link below to create appointment</p>
+			  <a href="{% url 'createOrd' user.id%}" class="card-link center">Click here</a>
+			</div>
+		  </div>
+      </div>
+	  <div class="col-4">
+		<div class="card my-2" style="width: 18rem;">
+			<div class="card-body">
+			  <h5 class="card-title">View Appointment</h5>
+			  <h6 class="card-subtitle mb-2 text-muted">Doctor-Patient Appointment</h6>
+			  <p class="card-text">Click the link below to see your appointment</p>
+			  <a href="{% url 'PatientRecordpage' %}" class="card-link center">Click here</a>
+			</div>
+		  </div>
+      </div>
+	</div>
+	<div class="row">
+		<div class="col-4">
+			<div class="card my-2" style="width: 18rem;">
+				<div class="card-body">
+				  <h5 class="card-title">Finantial Support</h5>
+				  <h6 class="card-subtitle mb-2 text-muted">FinantialAid</h6>
+				  <p class="card-text">Click the link for apply</p>
+				  <a href="{% url 'FS' %}" class="card-link center">Click here</a>
+				</div>
+			  </div>
+		  </div>
+		<div class="col-4">
+			<div class="card my-2" style="width: 18rem;">
+				<div class="card-body">
+				  <h5 class="card-title">Payment System</h5>
+				  <h6 class="card-subtitle mb-2 text-muted">BkashPayment</h6>
+				  <p class="card-text">Click the link below for pay your money</p>
+				  <a href="{% url 'payment' %}" class="card-link center">Click here</a>
+				</div>
+			  </div>
+		  </div>
+	</div>
+</div>
+
+{% endblock %}

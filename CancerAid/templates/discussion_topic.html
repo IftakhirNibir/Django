@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-2">
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search..."/>
+    </form>
+
+        <h3>All discussed topics</h3>
+        {% for i in room %}
+        <a style="text-decoration: none;" href="{% url 'discussion' i.id %}"><li>{{i.topic.name}}</li></a>
+        {% endfor %}
+    </div>
+    <div class="col-10">
+        <img height="400px" width="600px" src="../static/img/a.gif" class="d-block w-100" alt="...">
+    </div>
+    <a class="btn btn-sm btn-info" href="{% url 'createDiscussion' %}" style="margin: 4px;">Create Discussion</a>
+        {% for i in room %}
+        {% if i.host == request.user %}
+         <div>
+             <hr>
+             <a class="btn btn-sm btn-warning" href="{% url 'updateDiscussion' i.id %}">Edit</a>
+             <a class="btn btn-sm btn-danger" href="{% url 'deleteDiscussion' i.id %}">Delete</a>
+             {% endif %}
+             <h4>Created by {{i.host.username}}</h4>
+             <h5>Title: <a style="text-decoration:none" href="{% url 'discussion' i.id %}">{{i.name}}</a></h5>
+             <p>Main discussion about {{i.topic.name}}</p>
+             <p>{{i.description}}</p>
+             <hr>
+             <br>
+             {% endfor %}
+         </div>
+        
+</div>
+</div>
+
+{% endblock %}

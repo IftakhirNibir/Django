@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% block body %}
+
+{% load embed_video_tags %}
+<div class="container my-4">
+    <h3 style="text-align: center;">ক্যান্সার সংক্ৰান্ত ভিডিও</h3>
+    <div class="container">
+    <img height="400px" width="600px" src="../static/img/c.gif" class="d-block w-100" alt="...">
+</div>
+<p>ক্যান্সারের বেপারে সঠিক ধারণার অভাবে আমরা নিজেরা নিজেদের বিপদ ডেকে আনি। তাই আমাদের এই বিষয়ে খুব ভালো মতো ধারণা রাখতে হবে। যেমন: <li> ক্যান্সার হয়েছে কিনা। </li>
+    <li>কি কি কারণে ক্যান্সার হয়। </li> 
+    <li>ক্যান্সার হলে কোন অবস্থাতে আমরা আছি।</li> 
+    <li>এটার জন্য আমাদের কি কি পরীক্ষা করা দরকার।</li> 
+    <li>শেষ চিকিৎসা কেমন হয় উচিত।</li> 
+এই বিষয়গুলো সম্পর্কে খুব ভালো ধারণা রাখার জন্য আমরা কিছু গুরুত্বপূর্ণ YouTube ভিডিও এইখানে শেয়ার করেছি।  আশা করি সবাই উপকৃত হবেন। </p>
+</div>
+<div class="container">
+   {% for i in video %}
+    {% video i.video 'small'  %}
+   {% endfor %}
+   </div>
+
+{% endblock %}

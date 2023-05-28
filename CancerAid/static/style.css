@@ -1,0 +1,53 @@
+header{
+    text-decoration: none;
+}
+
+
+
+
+.fa {
+    padding: 20px;
+    font-size: 10px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+  
+.fas{
+    font-size: 30px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 100%;
+    border: 1px;
+}
+
+.fa-ambulance,.fa-hospital-user,.fa-pills{
+    background: #DFE4E4;
+    padding-top: 35px;
+    color:black;
+    transition: all 500ms;
+    -webkit-animation:spin 3s linear infinite;
+    -moz-animation:spin 3s linear infinite;
+    animation:spin 3s linear infinite;
+  }
+  
+  .fa-ambulance:hover,.fa-hospital-user:hover,.fa-pills:hover{
+    background: white;
+  }
+  
+  @-moz-keyframes spin { 
+    100% { -moz-transform: rotate(360deg); } 
+  }
+  @-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(360deg); } 
+  }
+  @keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+  }
+

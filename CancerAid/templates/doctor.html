@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class="container">
+<br>
+<h3 style="text-align: center;">Cancer Specialist Doctor</h3>
+<div class="row">
+  <div class="col-4">
+          <div class="card my-2" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Contect Your Doctors</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Doctors</h6>
+                <h2>Do you want to contact the doctors??</h2>
+                <p class="card-text">Please login and click the link below to create appointment</p>
+                <a href="{% url 'createOrd' user.id%}" class="card-link center">Click here</a>
+              </div>
+            </div>
+  </div>
+  <div class="col-8">
+<img height="400px" width="600px" src="../static/img/5.jpg" class="d-block w-100" alt="..." class="center"></div>
+</div>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{myFilter.form}}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+</div>
+<div class="container">
+    <div class="card card-body my-2" style="background: #BEE4F9;">
+        <h5 style="text-align: center;">Cancer Specialist</h5>
+    </div>
+    <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Specialist</th>
+            <th scope="col">Office</th>
+            <th scope="col">Available Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in doctor%}
+                        <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.title}}</td>
+                        <td>{{i.specialist}}</td>
+                        <td>{{i.office}}</td>
+                        <td>{{i.available}}</td>
+                    </tr>
+                    {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock %}

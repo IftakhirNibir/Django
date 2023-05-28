@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-6 my-4">
+			<img src="../static/img/5.jpg" class="d-block w-100" alt="loading...">
+		</div>
+		<div class="col-6">
+	<div class="card text-center my-4">
+		<div class="card-header">
+		  Your Profile
+		</div>
+		<div class="card-body">
+			<form method="POST" action="" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form.as_p}}
+	
+			<div class="form__action">
+				<a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+				<button class="btn btn--main" type="submit">Update</button>
+			  </div>
+		</form>
+		</div>
+	  </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md my-4">
+		<h5 style="text-align: center;">Your Appointment List</h5>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Patient Name</th>
+					<th>Posting_Time</th>
+					<th>Payment Status</th>
+			        <th>Problems</th>
+                    <th>Reply</th>
+				</tr>
+				{% for o in ord %}
+				<tr>
+					<td>{{o.patient}}</td>
+					<td>{{o.posting_time|timesince}} ago</td>
+					<td>{{o.status}}</td>
+					<td>{{o.problem}}</td>
+					<td><a href="{% url 'updateOrd' o.id%}">Reply</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}

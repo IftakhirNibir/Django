@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block body %}
+<h1 style="text-align: center;">Book Hospital For Emergency Conditions</h1>
+
+<div class="container">
+<div class="row my-4">
+<div class="col-6">
+        <img src="static/img/1.jpg" class="d-block w-100" alt="loading...">
+    </div>
+    <div class="col-6">
+<form method="post" id="ambuForm" data-hospitals-url="{% url 'ajax_load_hospitals' %}">
+  {% csrf_token %}
+   {{form.as_p}}
+   <hr>
+   <input type="submit">
+</form>
+    </div>
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script>
+      $("#id_district").change(function () { //This is id of the address field.
+        const url = $("#ambuForm").attr("data-hospitals-url");  // get the url of the `load_cities` view. ID and attr from the ambuform
+        const districtId = $(this).val();  // get the selected address ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= ajax/load-hospitals/ )
+            data: {
+                'district_id': districtId       // add the address id to the GET parameters(So we can filter at the backend)
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_hospital").html(data);  // replace the contents of the city input with the data that came from the server
+               
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

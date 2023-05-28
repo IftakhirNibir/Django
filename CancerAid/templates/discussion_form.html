@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div>
+    <form class="form" action="" method="POST">
+     {% csrf_token %}
+
+     <div class="form__group">
+         <label for="room_topic">Discussion Topic</label>
+         <input required type="text" value="{{room.topic.name}}" name="topic" list="topic-list" />
+         <datalist id="topic-list">
+             <select id="room_topic">
+                 {% for i in topics %}
+                 <option value="{{i.name}}">{{i.name}}</option>
+                 {% endfor %}
+             </select>
+         </datalist>
+     </div>
+
+     <div class="form__group">
+         <label for="room_name">Discussion Name</label>
+         {{form.name}}
+     </div>
+
+     <div class="form__group">
+         <label for="room_description">Description</label>
+         {{form.description}}
+     </div>
+
+     <div class="form__group">
+        <label for="room_description">More Details</label>
+        {{form.more}}
+    </div>
+
+     <div class="form__action">
+        <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+        <button class="btn btn--main" type="submit">Submit</button>
+      </div>
+    </form>
+</div>
+
+{% endblock %}

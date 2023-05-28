@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container">
+    <div class="card card-body my-2" style="background: #BEE4F9;">
+        <h5 style="text-align: center;">Patients Info</h5>
+    </div>
+    <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Views</th>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Email ID</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in patient%}
+                        <tr>
+                        <td><a href="{% url 'patientpage' i.id%}">Views</a></td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.email}}</td>
+                        </tr>
+                        {% endfor %}
+        </tbody>
+      </table>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center my-4">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3" style="background: #BEE4F9;">
+                <h4 class="my-0 fw-normal">Total Order</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{t_o}}</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3" style="background: #BEE4F9;">
+                <h4 class="my-0 fw-normal">Total Pending Order</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{req}}</h1>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3" style="background: #BEE4F9;">
+                <h4 class="my-0 fw-normal">Total delivered Order</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{acc}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{myFilter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+
+    <div class="card card-body my-2" style="background: #BEE4F9;">
+        <h5 style="text-align: center;">Order Info</h5>
+    </div>
+    <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Medicine</th>
+            <th scope="col">Ordered date</th>
+            <th scope="col">Delivery Status</th>
+            <th scope="col">Discount Status</th>
+            <th>Update</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for j in order %}
+            <tr>
+           <td>{{j.patient}}</td>
+           <td>{{j.medicine}}</td>
+           <td>{{j.date_created}}</td>
+           <td>{{j.status}}</td>
+           <td>{{j.discount}}</td>
+           <td><a href="{% url 'updateOrder' j.id%}">Update</a></td>
+           <td><a href="{% url 'deleteOrder' j.id%}">Delete</a></td>
+           </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

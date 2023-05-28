@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container">
+<br>
+<h3 style="text-align: center;">Cancer Drugs</h3>
+
+<div class="row">
+  <div class="col-4">
+          <div class="card my-2" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Order Your Medicine</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Cancer Drugs</h6>
+                <h2>Do you want to order the drugs??</h2>
+                <p class="card-text">Please login and click the link below to order medicine</p>
+                <a href="{% url 'createOrder' user.id%}" class="card-link center">Click here</a>
+              </div>
+            </div>
+  </div>
+  <div class="col-8">
+<img height="400px" width="600px" src="../static/img/6.jpg" class="d-block w-100" alt="..."></div>
+</div>
+
+
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+      <form method="GET" action="">
+        <label for="exampleInputEmail1" class="form-label">Search Medicines:
+        <input type="text" name="q" placeholder="Search..."/>
+        </label>
+    </form>
+
+			<form method="get">
+				{{myFilter.form}}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+</div>
+<div class="container">
+    <div class="card card-body my-2" style="background: #BEE4F9;">
+        <h5 style="text-align: center;">Medicines</h5>
+    </div>
+    <table class="table table-hover my-2">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price(Tk)</th>
+            <th scope="col">Catecory</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in medicine%}
+                        <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.price}}</td>
+                        <td>{{i.category}}</td>
+                    </tr>
+                    {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}

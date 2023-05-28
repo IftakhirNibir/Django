@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<div class="container my-4">
+    <img src="static/img/4.jpg" class="d-block w-100" alt="..." width="800" height="300">
+    <h1 class="text-center">Contect Us</h1>
+
+    <form method="post" action="/contect">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter your username">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address">
+          </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Phone Numeber</label>
+          <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter your Phone Number">
+        </div>
+        <div class="form-group">
+            <label for="desc">Tell me about why you want to contect for us</label>
+            <textarea class="form-control" id="desc" rows="3" name="desc"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Submit</button>
+      </form>
+</div>
+{% endblock body %}
