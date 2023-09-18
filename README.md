@@ -2,6 +2,7 @@
 <h1>The UI of the website is given below</h1>
 <img src="SS/homepage.png">
 <img src="SS/blog.png">
+<img src="SS/commentsection.png">
 <img src="SS/videos.png">
 <img src="SS/donation.png">
 <img src="SS/cancer.png">
